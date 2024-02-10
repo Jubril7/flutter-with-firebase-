@@ -6,9 +6,17 @@ Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   if(kIsWeb) {
-    await Firebase.initializeApp(options: const FirebaseOptions(apiKey: "AIzaSyCm-eYKCUXpjdLaGLkcRb86kf6kCc1E-Vk", appId: "1:134084678205:web:29093a6eca42b53e965054", messagingSenderId: "134084678205", projectId: "fir-flutter-be8b7"));
+    await Firebase.initializeApp(options: 
+    const FirebaseOptions(
+      apiKey: String.fromEnvironment('API_KEY'), 
+      appId: String.fromEnvironment('APP_ID'), 
+      messagingSenderId: String.fromEnvironment('MESSAGING_SENDER_ID'), 
+      projectId: String.fromEnvironment('PROJECT_ID')
+      )
+    );
+  } else {
+    await Firebase.initializeApp();
   }
-  await Firebase.initializeApp();
     runApp(const MainApp());
 }
 
