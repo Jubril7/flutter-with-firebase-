@@ -1,4 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_flutter/features/app/start_screen/start_screen.dart';
+import 'package:firebase_flutter/features/user_auth/presentation/pages/login_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -26,11 +28,10 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
-    );
+      debugShowCheckedModeBanner: false,
+      home: StartScreen(
+        child: LoginPage(),
+      )
+      );
   }
 }
