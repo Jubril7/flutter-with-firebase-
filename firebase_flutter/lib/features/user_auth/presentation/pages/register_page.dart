@@ -1,9 +1,34 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_flutter/features/user_auth/firebase_auth_impl/firebase_auth_service.dart';
+import 'package:firebase_flutter/features/user_auth/presentation/pages/home_page.dart';
 import 'package:firebase_flutter/features/user_auth/presentation/pages/login_page.dart';
 import 'package:firebase_flutter/features/user_auth/presentation/widgets/form_container_widget.dart';
 import 'package:flutter/material.dart';
 
-class RegisterPage extends StatelessWidget {
-const RegisterPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({Key? key}) : super(key: key);
+
+
+
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+FirebaseAuthService _auth = FirebaseAuthService();
+
+class _RegisterPageState extends State<RegisterPage> {
+
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,40 +51,46 @@ const RegisterPage({super.key});
             const SizedBox(
               height: 30,
             ),
-            const FormContainerWidget(
+            FormContainerWidget(
+              controller: _usernameController,
               hintText: "Username",
               isPasswordField: false,
             ),
             const SizedBox(
               height: 10.0,
             ),
-            const FormContainerWidget(
+            FormContainerWidget(
+              controller: _emailController,
               hintText: "Email",
               isPasswordField: false,
             ),
             const SizedBox(
               height: 10.0,
             ),
-            const FormContainerWidget(
+            FormContainerWidget(
+              controller: _passwordController,
               hintText: "Password",
               isPasswordField: true,
             ),
             const SizedBox(
               height: 30.0,
             ),
-            Container(
-              width: double.infinity,
-              height: 45.0,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                color: Colors.red,
+            GestureDetector(
+              onTap: () => signUp,
+              child: Container(
+                width: double.infinity,
+                height: 45.0,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.0),
+                  color: Colors.red,
+                ),
+                child: const Center(
+                    child:  Text(
+                  "Register",
+                  style:
+                      TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                )),
               ),
-              child: const Center(
-                  child:  Text(
-                "Register",
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              )),
             ),
             const SizedBox(height: 20.0,),
             Row(
@@ -88,5 +119,25 @@ const RegisterPage({super.key});
         ),
       ),
     );
+  }
+
+  void signUp(BuildContext context) async {
+
+    
+    // String username = _usernameController.text;
+    String email = _emailController.text;
+    String password = _passwordController.text;
+
+
+    User? user = await _auth.signUpWithEmailAndPassword(email, password);
+
+    if(user != null) {
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Homepage()), (route) => false);
+      print("Sign up success");
+
+    } else {
+      print("error occur");
+    }
+
   }
 }
