@@ -14,9 +14,13 @@ class RegisterPage extends StatefulWidget {
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
-FirebaseAuthService _auth = FirebaseAuthService();
 
 class _RegisterPageState extends State<RegisterPage> {
+
+  bool _isSigning = false;
+
+final FirebaseAuthService _auth = FirebaseAuthService();
+
 
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();

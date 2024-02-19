@@ -24,6 +24,7 @@ class Homepage extends StatelessWidget {
             fontWeight: FontWeight.bold
           ),
           ),
+          const SizedBox(height: 30.0,),
             GestureDetector(
               onTap: () {
                 FirebaseAuth.instance.signOut();
@@ -42,7 +43,7 @@ class Homepage extends StatelessWidget {
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
-                      fontSize: 18.0
+                      fontSize: 28.0
                     ),
                   ),
                 ),
