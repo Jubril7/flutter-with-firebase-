@@ -76,7 +76,7 @@ class _RegisterPageState extends State<RegisterPage> {
               height: 30.0,
             ),
             GestureDetector(
-              onTap: () => signUp,
+              onTap:  _signUp,
               child: Container(
                 width: double.infinity,
                 height: 45.0,
@@ -121,10 +121,10 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  void signUp(BuildContext context) async {
+  void _signUp() async {
 
     
-    // String username = _usernameController.text;
+    String username = _usernameController.text;
     String email = _emailController.text;
     String password = _passwordController.text;
 
